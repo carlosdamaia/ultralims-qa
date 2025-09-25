@@ -3,7 +3,7 @@
 ---
 
 ## Dados do Candidato
-*Dados disponíveis no documento enviado*
+*Dados disponíveis no documento enviado no e-mail*
 
 - **Nome:**  
 - **Email:**
