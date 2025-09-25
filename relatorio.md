@@ -147,5 +147,5 @@ Se o candidato criou **testes automatizados**, scripts ou qualquer ferramenta ex
   - **PHPUnit** para testes automatizados;
   - **Doctrine** e **MySQL** para manipulação e verificação do banco de dados. 
 - Repositório ou anexo: 
-  - **[Repositório:](https://github.com/carlosdamaia/ultralims-challenge-QA)** *Preferencial*, principal fonte para acesso ao código.
+  - **[Repositório:](https://github.com/carlosdamaia/ultralims-qa)** *Preferencial*, principal fonte para acesso ao código.
   - **[Anexo:](https://1drv.ms/f/c/a8e90bfcca3a1702/EvWT4_Jz5ylFrFHXclD0xSwBrgvWlHvNcQMuTuY8bBB-WQ?e=xPeZRV)** *Opcional*, se o repositório estiver indisponível.
