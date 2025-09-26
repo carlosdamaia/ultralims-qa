@@ -37,6 +37,25 @@ class ApiEndpointsTest extends TestCase
         $this->assertArrayHasKey('endpoints', $response['data']);
     }
 
+    public function testPostEndpointsWithOtherMethods(): void
+    {
+        $endpoints = [
+            '/api/user/register',
+            '/api/user/login',
+            '/api/calculator/simple-interest',
+            '/api/calculator/compound-interest',
+            '/api/calculator/installment',
+        ];
+
+        $methods = ['GET', 'PUT', 'PATCH', 'DELETE'];
+
+        foreach ($endpoints as $endpoint) {
+            foreach ($methods as $method) {
+                $response = $this->makeRequest($method, $endpoint);
+                $this->assertEquals(405, $response['status_code']);
+            }
+        }
+    }
 
     private function makeRequest(string $method, string $endpoint, array $data = []): array
     {

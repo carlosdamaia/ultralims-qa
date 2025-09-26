@@ -30,7 +30,7 @@ Avaliar a qualidade da API, identificando falhas funcionais e de negócio atrav�
 ### Casos de Teste 
 
 | ID | Funcionalidade | Cenário | Entrada | Resultado Esperado | Resultado Obtido | Status |
-|-|-|-|-|-|-|--|
+|-|-|-|-|-|-|-|
 | CT-API-001 | Endpoint Health | Saúde dos endpoints ok (Teste automatizado via PHPUnit) | `GET /health` | `200 OK`; resposta JSON contém: `"status": "ok"` | `200 OK`; resposta JSON contém: `"status": "ok"` | <span style="color:green">**Passou**</span> |
 | CT-API-002 | Docs endpoint           | Verifica se o endpoint da documentação da API está ok (Teste automatizado via PHPUnit)       | `GET /`                                                                 | `200 OK`; resposta JSON contém `"title": "Challenge QA API"`; `"success": true` e contém chave `"endpoints"`                 | `200 OK`; resposta JSON contém `"title": "Challenge QA API"`; `"success": true` e contém chave `"endpoints"`                 | <span style="color:green">**Passou**</span> |
 | CT-API-003 | Cálculo de juros simples | Cálculo válido (Teste automatizado via PHPUnit)             | `{"principal": 1000, "rate": 5, "time": 2}`                   | `200 OK`; resposta JSON contém: `"success": true`; `"calculation_type": "simple_interest"`; `"total_amount: 1100"`.              | `200 OK`; resposta JSON contém: `"success": true`; `"calculation_type": "simple_interest"`; `"total_amount: 1100"`.              | <span style="color:green">**Passou**</span> |
@@ -47,11 +47,11 @@ Avaliar a qualidade da API, identificando falhas funcionais e de negócio atrav�
 | CT-API-014 | Cálculo de parcelamentos | Cálculo válido (Teste automatizado via PHPUnit)                          |  `{"principal": 1000, "rate": 5, "installments": 10}`           | `200 OK`; JSON retornado contém com `"success": true`; `"installment_amount": 102.3`; `"total_amount": 1023.06` e `"total_interest": 23.06` | `200 OK`; JSON retornado contém com `"success": true`; `"installment_amount": 102.3`; `"total_amount": 1023.06` e `"total_interest": 23.06` | <span style="color:green">**Passou**</span> |
 | CT-API-015 | Cálculo de parcelamentos | Cálculo inválido com valor de `principal` negativo (Teste automatizado via PHPUnit) |  `{"principal": -1000, "rate": 5, "installments": 10}`          | `400 Bad Request`; JSON contém ``"success": false`` e chave `message` com erro genérico informando operação inválida.                                                | `200 OK`; JSON com `"success": true` indicando que uma operação inválida foi realizada | <span style="color:red">**Falhou**</span> |
 | CT-API-016 | Cálculo de parcelamentos | Entradas recebendo tipos de dados incorretos (Teste automatizado via PHPUnit)                 |  `{"principal": "A", "rate": "A", "installments": "A"}`          | `400 Bad Request`; JSON contém ``"success": false`` e chave `message` com erro genérico informando operação inválida.                                                | `500 Internal Server Error`; exceção `DivisionByZeroError` retornada pelo servidor, sem mensagem amigável.                                                                            | <span style="color:red">**Falhou**</span> |
-| CT-API-017 | Cálculo de parcelamentos | Falta de um dos campos obrigatórios na entrada (Teste automatizado via PHPUnit) |  `{"principal": 1000, "installments": 10}`                        | `400 Bad Request`; JSON retornado contendo `"success": false` e chave `message` com erro genérico informando a falta de um dos parâmetros obrigatórios.   | `400 Bad Request`; `400 Bad Request`; JSON retornado contendo `"success": false` e chave `message` com erro genérico informando a falta de um dos parâmetros obrigatórios.   | <span style="color:green">**Passou**</span> |
+| CT-API-017 | Cálculo de parcelamentos | Falta de um dos campos obrigatórios na entrada (Teste automatizado via PHPUnit) |  `{"principal": 1000, "installments": 10}`                        | `400 Bad Request`; JSON retornado contendo `"success": false` e chave `message` com erro genérico informando a falta de um dos parâmetros obrigatórios.   | `400 Bad Request`; JSON retornado contendo `"success": false` e chave `message` com erro genérico informando a falta de um dos parâmetros obrigatórios.   | <span style="color:green">**Passou**</span> |
 | CT-API-018 | Cálculo de parcelamentos | Cálculo inválido com valor de `installments` negativo (Teste automatizado via PHPUnit) |  `{"principal": 1000, "rate": 5, "installments": -10}`          | `400 Bad Request`; JSON contém ``"success": false`` e chave `message` com erro genérico informando operação inválida.               | `200 OK`; JSON contendo `"success": true` indicando que um cálculo inválido foi efetuado.                                                               | <span style="color:red">**Falhou**</span> |
 | CT-API-019 | Cálculo de parcelamentos | Cálculo inválido com valor de `rate` negativo (Teste manual via Postman) |  `{"principal": 1000, "rate": -5, "installments": 10}`          | `400 Bad Request`; JSON contém ``"success": false`` e chave `message` com erro genérico informando operação inválida.               | `200 OK`; JSON contendo `"success": true` indicando que um cálculo inválido foi efetuado.                                                               | <span style="color:red">**Falhou**</span> |
 | CT-API-020 | Cadastro de usuários    | Cadastro de usuário com entradas válidas de e-mail e senha forte (Teste automatizado via PHPUnit) |  `{"email": "email@test.com", "password": "Senh@Sup0st@men7eF0rt*"}` | `201 Created`; JSON retornado contendo `"success": true`, mensagem informando a criação do usuário e sem a chave `warning`. | `201 Created`; JSON retornado contendo `"success": true`, mensagem informando a criação do usuário, mas **com chave** `warning` inesperada. | <span style="color:red">**Falhou**</span> |
-| CT-API-021 | Cadastro de usuários    | Cadastro de usuário com entradas válidas de e-mail e senha fraca (Teste automatizado via PHPUnit) |  `{"email": "email@test.com", "password": "123"}` | `201 Created`; JSON retornado contendo `"success": true`, mensagem informando a criação do usuário, com `"warning": "Password is weak but accepted"`. | `201 Created`; JSON retornado contendo `"success": true` e mensagem de retorno clara informando a criação do usuário. | <span style="color:green">**Passou**</span> |
+| CT-API-021 | Cadastro de usuários    | Cadastro de usuário com entradas válidas de e-mail e senha fraca (Teste automatizado via PHPUnit) |  `{"email": "email@test.com", "password": "123"}` | `201 Created`; JSON retornado contendo `"success": true`, mensagem informando a criação do usuário, com `"warning": "Password is weak but accepted"`. | `201 Created`; JSON retornado contendo `"success": true` e `"warning": "Password is weak but accepted"` | <span style="color:green">**Passou**</span> |
 | CT-API-022 | Cadastro de usuários    | Cadastro de usuário com formato de e-mail inválido e senha fraca (Teste automatizado via PHPUnit) |  `{"email": "testesemarroba", "password": "123"}`               | `400 Bad Request`; JSON contém ``"success": false`` e chave `message` informando que o e-mail deve ser válido.                        | `201 Created`; JSON contendo `"success": true` | <span style="color:red">**Falhou**</span> |
 | CT-API-023 | Cadastro de usuários    | Cadastro de usuário com e-mail já registrado com credenciais diferentes (Teste automatizado via PHPUnit) |  `{"email": "duplicatedemail@test.com", "password": "differentpassword"}` | `409 Conflict`; JSON retornando `"success": false` e chave `message` informando que o e-mail já está registrado. | `201 Created`; JSON contendo `"success": true` | <span style="color:red">**Falhou**</span> |
 | CT-API-024 | Cadastro de usuários   | Cadastro de usuário com e-mail já registrado com credenciais iguais (Teste automatizado via PHPUnit) | `{"email": "samecredentials@test.com", "password": "anypassword"}` | `409 Conflict`; JSON retornando `"success": false` e chave `message` informando que o e-mail já está registrado. | `409 Conflict`; JSON retornando `"success": false` e ``"message": "Email already exists"``. | <span style="color:green">**Passou**</span> |
@@ -62,6 +62,7 @@ Avaliar a qualidade da API, identificando falhas funcionais e de negócio atrav�
 | CT-API-029 | Login de usuários       | Login com credenciais de usuário válidos (Teste automatizado via PHPUnit)                     |  `{"email": "validemail@test.com", "password": "mbqu2Q39NX1UB#"}`       | `200 OK`; JSON contendo `"success": true`, com chave `message` informando sucesso no login.             | `200 OK`; JSON contendo `"success": true`, com chave `message` informando sucesso no login.                           | <span style="color:green">**Passou**</span> |
 | CT-API-030 | Login de usuários       | Login com usuário não cadastrado (Teste automatizado via PHPUnit) |  `{"email": "nonexistent@example.com", "password": "anypassword"}` | `401 Unauthorized`; JSON contendo `"success": false` e chave `message` informando que as credenciais são inválidas. | `404 Not Found`; JSON contendo `"success": false` e `"message": "User not found"`         | <span style="color:red">**Falhou**</span> |
 | CT-API-031 | Login de usuários       | Login com senha de usuário inválida (Teste automatizado via PHPUnit)                         |  `{"email": "invalidpasswordvalidemail@test.com", "password": "mbqu232Q39NX1UB#"}`          | `401 Unauthorized`; JSON contendo `"success": false` e chave `message` genérica informando que as credenciais estão incorretas. | `401 Unauthorized`; JSON contendo `"success": false` e ``"message": "Password is incorrect"``                           | <span style="color:red">**Falhou**</span> |
+| CT-API-032 | Regras de método HTTP | Endpoints POST devem rejeitar outros métodos (Teste automatizado via PHPUnit) | `GET/PUT/PATCH/DELETE` em `/api/user/register`, `/api/user/login`, `/api/calculator/*` | `405 Method Not Allowed` | `200 OK`; Indicando que pelo menos um endpoint aceitou métodos não permitidos. | <span style="color:red">**Falhou**</span> |
 
 
 ---
@@ -100,6 +101,10 @@ Avaliar a qualidade da API, identificando falhas funcionais e de negócio atrav�
 
     **Impacto:** Facilita ataques de enumeração de contas.
 
+9. O teste `CT-API-032` verificou que endpoints que deveriam aceitar apenas o método `POST` permitiram outros métodos (`GET`, `PUT`, `PATCH`, `DELETE`), retornando `200 OK` em vez de `405 Method Not Allowed`.
+
+    **Impacto:** Possibilidade de comportamentos inesperados, aumento de superfície de ataque e dificuldade de observabilidade.
+
 ---
 
 ## Sugestões de Melhoria
@@ -120,7 +125,7 @@ Avaliar a qualidade da API, identificando falhas funcionais e de negócio atrav�
 
 8. Padronizar mensagens de erro de login com credenciais inválidas em todos os casos de falha, evitando exposição de informações sensíveis sobre existência de usuários.
 
-9. Padronizar todas as respostas de erros com um identificador fixo. Atualmente, a API não possui padrão definido para todos os erros. Isso pode causar **ambiguidade**, pois o mesmo código de status pode signifcar erros diferentes. 
+9. Padronizar todas as respostas de erros com um identificador fixo. Atualmente, a API não possui padrão definido para todos os erros. Isso pode causar **ambiguidade**, pois o mesmo código de status pode significar erros diferentes. 
 
     **Sugestão de padronização das respostas de erro:**
 
@@ -136,6 +141,8 @@ Avaliar a qualidade da API, identificando falhas funcionais e de negócio atrav�
       "error_code": "INVALID_EMAIL_FORMAT"
     }
     ```    
+
+10. Armazenar senhas de forma segura no banco de dados, nunca em texto puro (plain text). Utilizar funções de hash específicas para senhas.
 
 ---
 
