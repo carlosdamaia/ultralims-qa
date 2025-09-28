@@ -142,7 +142,9 @@ Avaliar a qualidade da API, identificando falhas funcionais e de negócio atrav�
     }
     ```    
 
-10. Armazenar senhas de forma segura no banco de dados, nunca em texto puro (plain text). Utilizar funções de hash específicas para senhas.
+10. Armazenar senhas de forma segura no banco de dados, nunca em texto puro. Utilizar funções de hash específicas para senhas.
+
+11. Padronizar o número de casas decimais nos cálculos.
 
 ---
 
